@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "watermelondb-expo-plugin": ["../src/index"],
+      "watermelondb-expo-plugin/*": ["../src/*"]
+    }
+  }
+}
