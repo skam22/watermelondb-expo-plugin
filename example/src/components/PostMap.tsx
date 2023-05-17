@@ -7,8 +7,9 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import withObservables from '@nozbe/with-observables';
 import { Database } from '@nozbe/watermelondb';
 
-import { PostItem } from '../components';
-import { Post, Tables } from '../database';
+import PostItem from './PostItem';
+import { Post } from '../database';
+import { Tables } from '../database/Tables.enum';
 
 interface Props {
 	posts: Post[];

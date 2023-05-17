@@ -1,5 +1,5 @@
 import { appSchema, tableSchema } from '@nozbe/watermelondb';
-import { Tables } from '../database';
+import { Tables } from '../database/Tables.enum';
 
 const schema = appSchema({
 	version: 1,

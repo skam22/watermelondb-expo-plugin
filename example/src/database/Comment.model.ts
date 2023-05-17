@@ -2,7 +2,8 @@ import { Model, Relation } from '@nozbe/watermelondb';
 import { relation, text } from '@nozbe/watermelondb/decorators';
 import { BelongsToAssociation } from '@nozbe/watermelondb/Model';
 
-import { Tables, Post } from '../database';
+import { Post } from '../database';
+import { Tables } from './Tables.enum';
 
 class Comment extends Model {
 	static table = Tables.comments;

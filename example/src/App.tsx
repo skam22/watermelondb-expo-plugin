@@ -8,7 +8,8 @@ import { Platform, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } 
 import { Collection, Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 
-import { schema, migrations, Post, Comment, Tables } from './database';
+import { schema, migrations, Post, Comment } from './database';
+import { Tables } from './database/Tables.enum';
 import { PostMap } from './components';
 
 const adapter = new SQLiteAdapter({

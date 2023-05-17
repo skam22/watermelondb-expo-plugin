@@ -4,12 +4,12 @@
 
 import React, { memo, useCallback, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-
-import { Post, Comment, Tables } from '../database';
 import { Collection, Database, Q } from '@nozbe/watermelondb';
 import withObservables from '@nozbe/with-observables';
 
-import { CommentItem } from '../components';
+import CommentItem from './CommentItem';
+import { Post, Comment } from '../database';
+import { Tables } from '../database/Tables.enum';
 
 interface Props {
 	post: Post;
