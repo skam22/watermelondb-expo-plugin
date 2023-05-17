@@ -1,9 +1,0 @@
-{
-  "platforms": ["ios", "android", "web"],
-  "ios": {
-    "modules": ["WatermelondbExpoPluginModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.watermelondbexpoplugin.WatermelondbExpoPluginModule"]
-  }
-}

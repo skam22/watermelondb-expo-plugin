@@ -1,5 +1,1 @@
-module.exports = {
-  root: true,
-  extends: ['universe/native', 'universe/web'],
-  ignorePatterns: ['build'],
-};
+module.exports = require('expo-module-scripts/eslintrc.base.js');

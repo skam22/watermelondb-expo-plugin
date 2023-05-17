@@ -1,43 +1,55 @@
 {
-  "name": "watermelondb-expo-plugin",
-  "version": "0.1.0",
-  "description": "Expo config plugin for watermelondb",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "scripts": {
-    "build": "expo-module build",
-    "clean": "expo-module clean",
-    "lint": "expo-module lint",
-    "test": "expo-module test",
-    "prepare": "expo-module prepare",
-    "prepublishOnly": "expo-module prepublishOnly",
-    "expo-module": "expo-module",
-    "open:ios": "open -a \"Xcode\" example/ios",
-    "open:android": "open -a \"Android Studio\" example/android"
-  },
-  "keywords": [
-    "react-native",
-    "expo",
-    "watermelondb-expo-plugin",
-    "WatermelondbExpoPlugin"
-  ],
-  "repository": "https://github.com/skam22/watermelondb-expo-plugin",
-  "bugs": {
-    "url": "https://github.com/skam22/watermelondb-expo-plugin/issues"
-  },
-  "author": "Spencer Kam <spencer.kam@gmail.com> (https://github.com/skam22)",
-  "license": "MIT",
-  "homepage": "https://github.com/skam22/watermelondb-expo-plugin#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "@types/react": "^18.0.25",
-    "@types/react-native": "^0.70.6",
-    "expo-module-scripts": "^3.0.4",
-    "expo-modules-core": "^1.1.0"
-  },
-  "peerDependencies": {
-    "expo": "*",
-    "react": "*",
-    "react-native": "*"
-  }
+	"name": "@skam22/watermelondb-expo-plugin",
+	"version": "1.0.0",
+	"description": "Expo config plugin for WatermelonDB that includes support for JSI",
+	"main": "app.plugin.js",
+	"types": "build/index.d.ts",
+	"files": [
+		"app.plugin.js",
+		"plugin/build"
+	],
+	"scripts": {
+		"build": "expo-module build",
+		"clean": "expo-module clean",
+		"test": "expo-module test",
+		"lint": "expo-module lint",
+		"prepare": "expo-module prepare",
+		"prepublishOnly": "expo-module prepublishOnly",
+		"expo-module": "expo-module"
+	},
+	"keywords": [
+		"expo",
+		"expo-plugin",
+		"react-native",
+		"watermelondb"
+	],
+	"homepage": "https://github.com/skam22/watermelondb-expo-plugin#README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/skam22/watermelondb-expo-plugin"
+	},
+	"bugs": {
+		"url": "https://github.com/skam22/watermelondb-expo-plugin/issues"
+	},
+	"author": "Spencer Kam <spencer.kam@gmail.com> (https://github.com/skam22)",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/fs-extra": "^11.0.1",
+		"expo-module-scripts": "^3.0.4",
+		"fs-extra": "^11.1.1",
+		"jest": "^29.2.1",
+		"jest-expo": "^48.0.2",
+		"path": "^0.12.7"
+	},
+	"dependencies": {
+		"expo": "^48.0.16"
+	},
+	"peerDependencies": {
+		"expo": ">= 48.0.16"
+	},
+	"peerDependenciesMeta": {
+		"expo": {
+			"optional": true
+		}
+	}
 }

@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "watermelondb-expo",
+    "slug": "watermelondb-expo",
+    "version": "0.1.0",
+    "description": "Expo config plugin for watermelondb",
+    "sdkVersion": "48.0.0",
+    "platforms": []
+  }
+}
