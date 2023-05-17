@@ -108,7 +108,7 @@ const androidPlugin: ConfigPlugin = (c) =>
 			insertAfter += 1;
 
 			const imports = `
-import java.util.arrays;
+import java.util.Arrays;
 import com.facebook.react.bridge.JSIModuleSpec;
 import com.facebook.react.bridge.JSIModulePackage;
 import com.facebook.react.bridge.ReactApplicationContext;

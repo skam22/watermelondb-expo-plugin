@@ -1,6 +1,6 @@
 {
 	"name": "@skam22/watermelondb-expo-plugin",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Expo config plugin for WatermelonDB that includes support for JSI",
 	"main": "app.plugin.js",
 	"types": "build/index.d.ts",
