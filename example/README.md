@@ -1,6 +1,10 @@
-# @skam22/watermelondb-expo-plugin
+# Description of the Example App
 
-Expo config plugin for WatermelonDB that includes support for JSI
+### Relationships
+
+A Post can have many Comments.
+
+A Comment belongs to a Post.
 
 # Example App Installation Usage
 
