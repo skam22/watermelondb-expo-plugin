@@ -5,7 +5,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Collection, Database, Q } from '@nozbe/watermelondb';
-import withObservables from '@nozbe/with-observables';
+import { withObservables } from '@nozbe/watermelondb/react';
 
 import CommentItem from './CommentItem';
 import { Post, Comment } from '../database';

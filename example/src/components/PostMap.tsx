@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import withObservables from '@nozbe/with-observables';
+import { withObservables } from '@nozbe/watermelondb/react';
 import { Database } from '@nozbe/watermelondb';
 
 import PostItem from './PostItem';
