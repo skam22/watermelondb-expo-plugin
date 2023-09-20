@@ -14,11 +14,11 @@ npx expo install @nozbe/watermelondb @babel/plugin-proposal-decorators
 
 ```js
 module.exports = function (api) {
-	api.cache(true);
-	return {
-		presets: ['babel-preset-expo'],
-		plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
-	};
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"],
+    plugins: [["@babel/plugin-proposal-decorators", { legacy: true }]],
+  };
 };
 ```
 
@@ -36,27 +36,36 @@ npx expo install @skam22/watermelondb-expo-plugin
 
 #### Modify your `app.json` plugin block to add the following:
 
-```javascript
+```json
 {
-	"expo": {
-		...
-		"plugins": [
-			[
-				"expo-build-properties",
-				{
-					"android": {
-						"kotlinVersion": "1.6.10",
-						"compileSdkVersion": 33,
-						"targetSdkVersion": 33,
-						"packagingOptions": {
-							"pickFirst": ["**/libc++_shared.so"]
-						}
-					}
-				}
-			],
-			"@skam22/watermelondb-expo-plugin"
-		],
-	}
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.6.10",
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "packagingOptions": {
+              "pickFirst": ["**/libc++_shared.so"]
+            }
+          },
+          "ios": {
+            "extraPods": [
+              {
+                "name": "simdjson",
+                "configurations": ["Debug", "Release"],
+                "path": "path_to/node_modules/@nozbe/simdjson",
+                "modular_headers": true
+              }
+            ]
+          }
+        }
+      ],
+      "@skam22/watermelondb-expo-plugin"
+    ]
+  }
 }
 ```
 
@@ -78,32 +87,15 @@ The modifications to the native files are all accomplished by reading the existi
 
 If the structure/contents/spelling of these default files change in future versions of react native or expo in any way, these plugin modifications will fail.
 
-For example, the Podfile modification inserts
+For example, `android/settings.gradle` references the line:
 
-```js
-pod 'simdjson', path: '../node_modules/@nozbe/simdjson', modular_headers: true
-
-```
-
-by referencing the line:
-
-```js
-flipper_config = FlipperConfiguration.disabled;
-```
-
-If the referenced line doesn't exist or is modified in any way, the iOS plugin will fail.
-
-The `@nozbe/watermelondb` android specific installation steps are accomplished similarly.
-
-`android/settings.gradle` references the line:
-
-```js
+```groovy
 include ':app'
 ```
 
 `android/app/build.gradle` references the line:
 
-```js
+```groovy
 def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
 ```
 
@@ -112,17 +104,3 @@ def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
 ```
 # Add any project specific keep options here:
 ```
-
-`MainApplication.java` references the line:
-
-```js
-import java.util.List;
-```
-
-and also searches for the line that includes this text, and then inserts the JSIModulePackage Override 3 lines later:
-
-```js
-isHermesEnabled();
-```
-
-This approach is not future proof and probably not backwards compatible either, though I haven't specifically checked the contents of the default files for older versions of react native or expo.
