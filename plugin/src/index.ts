@@ -1,4 +1,5 @@
-import { ConfigPlugin, withDangerousMod, withPlugins } from '@expo/config-plugins';
+import { ConfigPlugin, withDangerousMod, withPlugins, withMainApplication } from '@expo/config-plugins';
+import { addImports } from '@expo/config-plugins/build/android/codeMod';
 import { mergeContents } from '@expo/config-plugins/build/utils/generateCode';
 import fs from 'fs-extra';
 import path from 'path';
@@ -22,7 +23,7 @@ const androidPlugin: ConfigPlugin = (c) =>
 			 */
 			const settingsFile = path.join(platformProjectRoot, 'settings.gradle');
 			const settingsContents = await readFileAsync(settingsFile);
-			const projectDir = `apply from: new File(["node", "--print", "require.resolve('@nozbe/watermelondb/package.json')"].execute(null, rootDir).text.trim(), "../native/android-jsi")`;
+			const projectDir = `new File(["node", "--print", "require.resolve('@nozbe/watermelondb/package.json')"].execute(null, rootDir).text.trim(), "../native/android-jsi")`;
 
 			await writeFileAsync(
 				settingsFile,
@@ -72,52 +73,21 @@ const androidPlugin: ConfigPlugin = (c) =>
 				}).contents
 			);
 
-			/**
-			 * JSI Step 5: modify MainApplication.java
-			 */
-			const mainApplicationFile = path.join(
-				platformProjectRoot,
-				`app/src/main/java/${config.android?.package?.replace(/\./g, '/')}/MainApplication.java`
-			);
-			const mainApplicationContents = await readFileAsync(mainApplicationFile);
-			const lines = mainApplicationContents.split('\n');
+			return config;
+		},
+	]);
 
-			let insertAfter = lines.findIndex((obj) => obj === 'import java.util.List;');
-			if (insertAfter === -1) {
-				throw new Error('Could not find the correct starting index for imports');
-			}
-			insertAfter += 1;
+const modifyAndroidApplication: ConfigPlugin = (config) => {
+	return withMainApplication(config, (config) => {
+		const src = addImports(
+			config.modResults.contents,
+			['java.util.Arrays', 'com.facebook.react.bridge.JSIModuleSpec',
+				'com.facebook.react.bridge.JSIModulePackage','com.facebook.react.bridge.ReactApplicationContext',
+				'com.facebook.react.bridge.JavaScriptContextHolder','com.nozbe.watermelondb.jsi.WatermelonDBJSIPackage'],
+			config.modResults.language === 'java',
+		);
 
-			const imports = `
-import java.util.Arrays;
-import com.facebook.react.bridge.JSIModuleSpec;
-import com.facebook.react.bridge.JSIModulePackage;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.JavaScriptContextHolder;
-import com.nozbe.watermelondb.jsi.WatermelonDBJSIPackage;
-
-`;
-			lines.splice(insertAfter, 0, imports);
-
-			let secondStartingIndex = lines.findIndex((obj) => obj.includes('isHermesEnabled()'));
-			if (secondStartingIndex === -1) {
-				throw new Error(
-					'Could not find the correct starting index for the JSIModulePackage override'
-				);
-			}
-
-			/**
-			 *  sets the secondStarting index to insert after this block in MainActivity.java:
-			 *
-			 * 														@Override
-       *  													protected Boolean isHermesEnabled() {
-       *                          		return BuildConfig.IS_HERMES_ENABLED;
-			 *														}
-
-			 */
-			secondStartingIndex += 3;
-
-			const moreLinesToAdd = `
+		const moreLinesToAdd = `
 			@Override
 			protected JSIModulePackage getJSIModulePackage() {
 				return new JSIModulePackage() {
@@ -135,15 +105,20 @@ import com.nozbe.watermelondb.jsi.WatermelonDBJSIPackage;
 					}
 				};
 			}`;
-			lines.splice(secondStartingIndex, 0, moreLinesToAdd);
 
-			await writeFileAsync(mainApplicationFile, lines.join('\n'));
-			return config;
-		},
-	]);
+		config.modResults.contents = mergeContents({
+			src,
+			tag: `@nozbe/watermelondb/jsi-package-tag`,
+			newSrc: `${moreLinesToAdd}`,
+			anchor: /getJSMainModuleName/,
+			offset: -2,
+			comment: '//',
+		}).contents;
 
-export const withAndroidWatermelon: ConfigPlugin = (config) => withPlugins(config, [androidPlugin]);
+		return config;
+	})
+}
 
-const withWatermelon: ConfigPlugin = (config) => withPlugins(config, [androidPlugin]);
+export const withAndroidWatermelon: ConfigPlugin = (config) => withPlugins(config, [androidPlugin, modifyAndroidApplication]);
 
-export default withWatermelon;
+export default withAndroidWatermelon;
