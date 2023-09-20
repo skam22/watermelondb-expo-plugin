@@ -7,26 +7,6 @@ const readFileAsync = async (path: string) => fs.promises.readFile(path, 'utf-8'
 const writeFileAsync = async (path: string, content: string) =>
 	fs.promises.writeFile(path, content, 'utf-8');
 
-const iosPlugin: ConfigPlugin = (c) =>
-	withDangerousMod(c, [
-		'ios',
-		async (config) => {
-			const podfile = path.join(config.modRequest.platformProjectRoot, 'Podfile');
-			const contents = await readFileAsync(podfile);
-			await writeFileAsync(
-				podfile,
-				mergeContents({
-					tag: `@nozbe/watermelondb`,
-					src: contents,
-					newSrc: `pod 'simdjson', path: '../node_modules/@nozbe/simdjson', modular_headers: true`,
-					offset: 0,
-					comment: '#',
-					anchor: /flipper_config = FlipperConfiguration.disabled/,
-				}).contents
-			);
-			return config;
-		},
-	]);
 
 const androidPlugin: ConfigPlugin = (c) =>
 	withDangerousMod(c, [
@@ -42,6 +22,8 @@ const androidPlugin: ConfigPlugin = (c) =>
 			 */
 			const settingsFile = path.join(platformProjectRoot, 'settings.gradle');
 			const settingsContents = await readFileAsync(settingsFile);
+			const projectDir = `apply from: new File(["node", "--print", "require.resolve('@nozbe/watermelondb/package.json')"].execute(null, rootDir).text.trim(), "../native/android-jsi")`;
+
 			await writeFileAsync(
 				settingsFile,
 				mergeContents({
@@ -49,8 +31,7 @@ const androidPlugin: ConfigPlugin = (c) =>
 					src: settingsContents,
 					newSrc: `
 		include ':watermelondb-jsi'
-		project(':watermelondb-jsi').projectDir =
-				new File(rootProject.projectDir, '../node_modules/@nozbe/watermelondb/native/android-jsi')`,
+		project(':watermelondb-jsi').projectDir = ${projectDir}`,
 					offset: 0,
 					comment: '//',
 					anchor: "include ':app'",
@@ -127,7 +108,7 @@ import com.nozbe.watermelondb.jsi.WatermelonDBJSIPackage;
 
 			/**
 			 *  sets the secondStarting index to insert after this block in MainActivity.java:
-			 * 
+			 *
 			 * 														@Override
        *  													protected Boolean isHermesEnabled() {
        *                          		return BuildConfig.IS_HERMES_ENABLED;
@@ -161,9 +142,8 @@ import com.nozbe.watermelondb.jsi.WatermelonDBJSIPackage;
 		},
 	]);
 
-export const withIosWatermelon: ConfigPlugin = (config) => withPlugins(config, [iosPlugin]);
 export const withAndroidWatermelon: ConfigPlugin = (config) => withPlugins(config, [androidPlugin]);
 
-const withWatermelon: ConfigPlugin = (config) => withPlugins(config, [iosPlugin, androidPlugin]);
+const withWatermelon: ConfigPlugin = (config) => withPlugins(config, [androidPlugin]);
 
 export default withWatermelon;
