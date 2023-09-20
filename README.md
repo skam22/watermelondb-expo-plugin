@@ -14,11 +14,11 @@ npx expo install @nozbe/watermelondb @babel/plugin-proposal-decorators
 
 ```js
 module.exports = function (api) {
-	api.cache(true);
-	return {
-		presets: ['babel-preset-expo'],
-		plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
-	};
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"],
+    plugins: [["@babel/plugin-proposal-decorators", { legacy: true }]],
+  };
 };
 ```
 
@@ -36,37 +36,36 @@ npx expo install @skam22/watermelondb-expo-plugin
 
 #### Modify your `app.json` plugin block to add the following:
 
-```javascript
+```json
 {
-	"expo": {
-		...
-		"plugins": [
-			[
-				"expo-build-properties",
-				{
-					"android": {
-						"kotlinVersion": "1.6.10",
-						"compileSdkVersion": 33,
-						"targetSdkVersion": 33,
-						"packagingOptions": {
-							"pickFirst": ["**/libc++_shared.so"]
-						}
-					},
-					"ios": {
-						"extraPods": [
-                          {
-                            "name": "simdjson",
-                            "configurations": ["Debug", "Release"],
-                            "path": "path_to/node_modules/@nozbe/simdjson",
-                            "modular_headers": true
-                          }
-                        ]
-					},
-				}
-			],
-			"@skam22/watermelondb-expo-plugin"
-		],
-	}
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.6.10",
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "packagingOptions": {
+              "pickFirst": ["**/libc++_shared.so"]
+            }
+          },
+          "ios": {
+            "extraPods": [
+              {
+                "name": "simdjson",
+                "configurations": ["Debug", "Release"],
+                "path": "path_to/node_modules/@nozbe/simdjson",
+                "modular_headers": true
+              }
+            ]
+          }
+        }
+      ],
+      "@skam22/watermelondb-expo-plugin"
+    ]
+  }
 }
 ```
 
@@ -90,13 +89,13 @@ If the structure/contents/spelling of these default files change in future versi
 
 For example, `android/settings.gradle` references the line:
 
-```js
+```groovy
 include ':app'
 ```
 
 `android/app/build.gradle` references the line:
 
-```js
+```groovy
 def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
 ```
 
