@@ -2002,10 +2002,10 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@skam22/watermelondb-expo-plugin@^1.1.49":
-  version "1.1.49"
-  resolved "https://registry.yarnpkg.com/@skam22/watermelondb-expo-plugin/-/watermelondb-expo-plugin-1.1.49.tgz#bd0e6f0bdc636963b594fb903287b14ebeb52925"
-  integrity sha512-s7iX7Dq2ma9bs7zYHSaON/OfO7tz/98LE+EpHQV++CcT2U7Y7e6ppTlEaAvrrOefOkAmwIgrwykrxR6qGHzM7w==
+"@skam22/watermelondb-expo-plugin@^49.0.1":
+  version "49.0.1"
+  resolved "https://registry.yarnpkg.com/@skam22/watermelondb-expo-plugin/-/watermelondb-expo-plugin-49.0.1.tgz#3244bff409757538f93008cc5a6d63da14e80fe6"
+  integrity sha512-aAuEajsMUzhPjnVkCIsNSpGRfl/j+ZofFKbZbhwky7WIwvZ3rXhCIJZBiUzUinpCDVoe3ry3cC1CI8XsxLxtJA==
   dependencies:
     expo "^49.0.8"
 
