@@ -44,7 +44,7 @@ npx expo install @skam22/watermelondb-expo-plugin
         "expo-build-properties",
         {
           "android": {
-            "kotlinVersion": "1.6.10",
+            "kotlinVersion": "1.8.10",
             "compileSdkVersion": 33,
             "targetSdkVersion": 33,
             "packagingOptions": {
