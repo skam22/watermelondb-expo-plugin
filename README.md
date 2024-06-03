@@ -31,7 +31,7 @@ npx expo install @expo/config-plugins expo-build-properties
 ### Add the watermelondb-expo-plugin
 
 ```
-npx expo install @skam22/watermelondb-expo-plugin
+npx expo install @skam22/watermelondb-expo-plugin@^51.0.0
 ```
 
 #### Modify your `app.json` plugin block to add the following:
