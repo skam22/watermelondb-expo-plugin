@@ -1,55 +1,55 @@
 {
-	"expo": {
-		"name": "example",
-		"slug": "example",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "light",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true,
-			"bundleIdentifier": "com.spencerkam.example"
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			},
-			"package": "com.spencerkam.example"
-		},
-		"web": {
-			"favicon": "./assets/favicon.png"
-		},
-		"plugins": [
-			[
-				"expo-build-properties",
-				{
-					"android": {
-						"kotlinVersion": "1.8.10",
-						"compileSdkVersion": 33,
-						"targetSdkVersion": 33,
-						"packagingOptions": {
-							"pickFirst": ["**/libc++_shared.so"]
-						}
-					},
-					"ios": {
-						"extraPods": [
-							{
-								"name": "simdjson",
-								"path": "../node_modules/@nozbe/simdjson",
-								"modular_headers": true
-							}
-						]
-					}
-				}
-			],
-			"@skam22/watermelondb-expo-plugin"
-		]
-	}
+  "expo": {
+    "name": "example",
+    "slug": "example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.spencerkam.example"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.spencerkam.example"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.8.10",
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "packagingOptions": {
+              "pickFirst": ["**/libc++_shared.so"]
+            }
+          },
+          "ios": {
+            "extraPods": [
+              {
+                "name": "simdjson",
+                "path": "../node_modules/@nozbe/simdjson",
+                "modular_headers": true
+              }
+            ]
+          }
+        }
+      ],
+      "@skam22/watermelondb-expo-plugin"
+    ]
+  }
 }
