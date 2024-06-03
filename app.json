@@ -1,9 +1,10 @@
 {
-	"expo": {
-		"name": "watermelondb-expo",
-		"slug": "watermelondb-expo",
-		"version": "49.0.1",
-		"description": "Expo config plugin for watermelondb",
-		"platforms": []
-	}
+  "expo": {
+    "name": "watermelondb-expo",
+    "slug": "watermelondb-expo",
+    "version": "49.0.1",
+    "description": "Expo config plugin for watermelondb",
+    "platforms": ["ios", "android"],
+    "sdkVersion": "49"
+  }
 }
